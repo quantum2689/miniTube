@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>miniTube</title>
+    <style>
+        /* Makes the entire page background dark and text white */
+        body {
+            background-color: #121212; /* A nice dark charcoal color */
+            color: #ffffff;            /* White text */
+            font-family: Arial, sans-serif;
+        }
+
+        /* Optional: make text boxes look better on a dark background */
+        textarea, input {
+            background-color: #222222;
+            color: #ffffff;
+            border: 1px solid #444444;
+        }
+    </style>
+</head>
+<body>
+    <h1>miniTube</h1>
+    <base>
+    <form action="/" method="post">
+        <label>embed</label>
+        <input type="text" name="iframe" required>
+        <button type="submit">Add</button>
+    </form>
+    {%if embed != "None"%}
+    {%for emb in embed%}
+    {{emb|safe}}
+    {%endfor%}
+    {%else%}
+    <h1>there is no vids yet</h1>
+    {%endif%}
+</body>
+</html>
