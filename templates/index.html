@@ -18,19 +18,32 @@
             color: #ffffff;
             border: 1px solid #444444;
         }
+        button{
+            cursor: pointer;
+        }
+        .name{
+            background: none;
+            color: white;
+            border: none;
+        }
     </style>
 </head>
 <body>
-    <h1>miniTube</h1>
-    <base>
+    <button type="button"  onclick="window.location.reload()" class="name"><h1>miniTube</h1></button>
     <form action="/" method="post">
         <label>embed</label>
         <input type="text" name="iframe" required>
         <button type="submit">Add</button>
     </form>
+    <hr>
     {%if embed != "None"%}
-    {%for emb in embed%}
-    {{emb|safe}}
+    {%for rowid, emb in embed%}
+    <div style="display:inline-block; position:relative; margin:8px;">
+        {{emb|safe}}
+        <form action="/delete/{{rowid}}" method="post" style="margin:0;">
+            <button type="submit" style="display:block; width:100%; margin-top:4px; background-color:#c0392b; color:white; border:none; padding:4px 8px; cursor:pointer; border-radius:4px;">Delete</button>
+        </form>
+    </div>
     {%endfor%}
     {%else%}
     <h1>there is no vids yet</h1>

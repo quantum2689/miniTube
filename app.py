@@ -29,16 +29,23 @@ def get_embeds():
   conn = sqlite3.connect('videos.db')
   cursor = conn.cursor()
 
-  cursor.execute('SELECT links FROM EMBEDS')
-  embeds = cursor.fetchall()  # Returns a list of tuples: [('link1',), ('link2',)]
+  cursor.execute('SELECT ROWID, links FROM EMBEDS')
+  embeds = cursor.fetchall()  # Returns a list of tuples: [(rowid, 'link1'), ...]
   conn.close()
 
   if not embeds:
     return 'None'
 
-  # Extract the string from each tuple into a list
-  iframes = [row[0] for row in embeds]
+  # Extract (rowid, iframe) pairs
+  iframes = [(row[0], row[1]) for row in embeds]
   return iframes
+
+def delete_embed(rowid):
+  conn = sqlite3.connect('videos.db')
+  cursor = conn.cursor()
+  cursor.execute('DELETE FROM EMBEDS WHERE ROWID = ?', (rowid,))
+  conn.commit()
+  conn.close()
 
 app = Flask(__name__)
 
@@ -51,5 +58,10 @@ def hello_world():
         return redirect(url_for("hello_world"))
     embed = get_embeds()
     return render_template("index.html",embed=embed)
+
+@app.route("/delete/<int:rowid>", methods=["POST"])
+def delete_video(rowid):
+    delete_embed(rowid)
+    return redirect(url_for("hello_world"))
 
 app.run() 
