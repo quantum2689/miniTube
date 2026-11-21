@@ -2,8 +2,11 @@
 
 A minimal local video library that lets you save and watch YouTube embeds in one place.
 
-it's goal to let you watch all of your videos that you wanna watch later without distractions.
-## Setup
+## Download
+
+Grab the latest `miniTube.exe` from [Releases](https://github.com/quantum2689/miniTube/releases/tag/v1.0.0.0) — no installation needed, just run it.
+
+## Run from source
 
 ```bash
 pip install flask
