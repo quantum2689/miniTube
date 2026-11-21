@@ -1,2 +1,5 @@
-vidoes.db
+videos.db
 .vscode
+dist/
+build/
+*.spec
